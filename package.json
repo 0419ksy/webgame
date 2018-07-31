@@ -1,0 +1,19 @@
+{
+  "name": "webgame",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0419ksy/webgame.git"
+  },
+  "author": "ksy0419",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/0419ksy/webgame/issues"
+  },
+  "homepage": "https://github.com/0419ksy/webgame#readme"
+}
