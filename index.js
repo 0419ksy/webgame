@@ -1,10 +1,19 @@
 const express = require('express');
 const app = express();
+const server = require('http').Server(app);
 
-app.listen(8888, function() {
-    console.log('start at 8888');
-});
+app.use('/client', express.static(__dirname + '/client'));
 
 app.get('/', function (req, res) {
-    res.send('Hello');
+    res.sendFile(__dirname + '/client/index.html');
 })
+
+server.listen(8888, function() {
+    console.log('start at 8888');
+})
+
+var io = require('socket.io') (server, {});
+
+io.sockets.on('connection', function(socket) {
+    console.log('socket connected');
+});
