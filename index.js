@@ -16,4 +16,9 @@ var io = require('socket.io') (server, {});
 
 io.sockets.on('connection', function(socket) {
     console.log('socket connected');
+
+    socket.on('hello', function(data) {
+        console.log(`welcome ${data.name}`);
+    })
 });
+
