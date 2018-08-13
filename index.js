@@ -14,11 +14,34 @@ server.listen(8888, function() {
 
 var io = require('socket.io') (server, {});
 
-io.sockets.on('connection', function(socket) {
-    console.log('socket connected');
+var SOCKET_LIST = {};
 
-    socket.on('hello', function(data) {
-        console.log(`welcome ${data.name}`);
-    })
+io.sockets.on('connection', function(socket) {
+    socket.id = Math.random();
+    socket.x = 0;
+    socket.y = 0;
+    socket.number = "" + Math.floor(10 * Math.random());
+    SOCKET_LIST[socket.id] = socket;
+
+    socket.on('disconnect', function() {
+        delete SOCKET_LIST[socket.id];
+    });
 });
 
+setInterval(function() {
+    var pack = [];
+    for (var i in SOCKET_LIST) {
+        var socket = SOCKET_LIST[i];
+        socket.x++;
+        socket.y++;
+        pack.push({
+            x:socket.x,
+            y:socket.y,
+            number: socket.number
+        });
+    }
+    for (var i in SOCKET_LIST) {
+        var socket = SOCKET_LIST[i];
+        socket.emit('newPositions', pack);
+    }
+}, 1000/25);
