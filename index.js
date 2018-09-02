@@ -144,6 +144,8 @@ Bullet.update = function(){
     return pack;
 }
 
+var DEBUG = true;
+
 io.sockets.on('connection', function (socket) {
     socket.id = Math.random();
     SOCKET_LIST[socket.id] = socket;
@@ -155,6 +157,19 @@ io.sockets.on('connection', function (socket) {
         Player.onDisconnect(socket);
     });
 
+    socket.on('sendMsgToServer',function(data){
+        var playerName = ("" + socket.id).slice(2,7);
+        for(var i in SOCKET_LIST){
+            SOCKET_LIST[i].emit('addToChat',playerName + ': ' + data);
+        }
+    });
+   
+    socket.on('evalServer',function(data){
+        if(!DEBUG)
+            return;
+        var res = eval(data);
+        socket.emit('evalAnswer',res);     
+    });
 
 });
 
