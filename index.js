@@ -160,7 +160,7 @@ Bullet.update = function(){
  
 var DEBUG = true;
  
-var io = require('socket.io')(serv,{});
+var io = require('socket.io')(server,{});
 io.sockets.on('connection', function (socket) {
     socket.id = Math.random();
     SOCKET_LIST[socket.id] = socket;
