@@ -7,7 +7,7 @@ app.get('/', function (req, res) {
     res.sendFile(__dirname + '/client/index.html');
 })
  
-serv.listen(8888);
+server.listen(8888);
 console.log("Server started.");
  
 var SOCKET_LIST = {};
